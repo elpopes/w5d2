@@ -132,5 +132,19 @@ end
 def alien_cast
   # Obtain the cast list for the film 'Alien'
   execute(<<-SQL)
+  SELECT
+    DISTINCT name
+  FROM
+    actors
+  JOIN
+    castings ON actors.id = actor_id
+  JOIN
+    movies ON movie_id = (
+      SELECT
+        id
+      FROM
+        movies
+      WHERE
+        title = 'Alien');
   SQL
 end
